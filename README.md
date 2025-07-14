@@ -1,107 +1,104 @@
-# Machine Learning Paper - Anomaly Detection Across Workflow Datasets
+# Machine Learning Workflow Anomaly Detection - Project Guide
 
-## 🎯 Project Overview
-
-This project implements and evaluates **6 anomaly detection models** across 12 workflow datasets using multiple modalities (text, tabular, graph) and approaches (3 supervised, 3 unsupervised).
-
-## 📊 Datasets Analyzed
-
-The following 12 workflow datasets were analyzed:
-- `1000genome` - Genomics workflow
-- `casa_nowcast` - Climate modeling  
-- `casa_wind_speed` - Wind speed analysis
-- `eht_difmap` - Event Horizon Telescope data processing
-- `eht_imaging` - EHT imaging pipeline
-- `eht_smili` - EHT SMILI processing
-- `montage` - Astronomical image mosaicking
-- `predict_future_sales` - Sales prediction workflow
-- `pycbc_inference` - Gravitational wave inference
-- `pycbc_search` - Gravitational wave search
-- `somospie` - Solar dynamics analysis
-- `variant_calling` - Genomic variant calling
-
-## 🤖 Models Implemented
-
-### Supervised Learning (3 models)
-- **GCN Graph Classification**: Graph-based anomaly detection
-- **Random Forest Tabular**: Tabular-based anomaly detection
-- **RoBERTa Text Classification**: Text-based anomaly detection
-
-### Unsupervised Learning (3 models)
-- **Graph Autoencoder (Fixed)**: Graph-based anomaly detection
-- **Gaussian Mixture Model**: Tabular-based anomaly detection
-- **Sentence-BERT + Isolation Forest**: Text-based anomaly detection
-
-
-## 📁 Project Structure
-
-```
-├── results/
-│   ├── supervised/
-│   │   └── gcn_graph/          # GCN Graph Classification
-│   │   └── random_forest_tabular/          # Random Forest Tabular
-│   │   └── roberta_text/          # RoBERTa Text Classification
-│   └── unsupervised/
-│       └── graph_gae/       # Graph Autoencoder (Fixed)
-│       └── tabular_gmm/       # Gaussian Mixture Model
-│       └── text_sentence_bert/       # Sentence-BERT + Isolation Forest
-├── reports/
-│   ├── supervised/                # Supervised learning reports
-│   └── unsupervised/              # Unsupervised learning reports  
-├── scripts/
-│   ├── supervised/                # Supervised model scripts
-│   ├── unsupervised/              # Unsupervised model scripts
-│   └── utils/                     # Utility and organization scripts
-└── data/                          # Dataset files
-```
-
-## 🚀 Usage
-
-### Running Individual Models
-
-```bash
-# Supervised Models
-python scripts/supervised/gcn_graph/train_*.py
-python scripts/supervised/random_forest_tabular/train_*.py
-python scripts/supervised/roberta_text/train_*.py
-
-# Unsupervised Models
-python scripts/unsupervised/graph_gae/train_*.py
-python scripts/unsupervised/tabular_gmm/train_*.py
-python scripts/unsupervised/text_sentence_bert/train_*.py
-```
-
-## 📊 Result Files
-
-Each model directory contains:
-- `*_results_summary.csv` - Performance metrics summary
-- `*_confusion_matrices.png` - Confusion matrix visualizations  
-- `*_roc_curves.png` - ROC curve plots
-- `*_performance_summary.png` - Comprehensive performance analysis
-
-## 🏆 Key Findings
-
-This comprehensive evaluation across multiple modalities and approaches provides insights into:
-- **Best performing models** for each data type
-- **Cross-modal performance** comparisons
-- **Supervised vs unsupervised** effectiveness
-- **Dataset-specific** anomaly patterns
-
-## 📚 Dependencies
-
-```
-torch>=1.9.0
-transformers>=4.0.0
-sentence-transformers>=2.0.0
-scikit-learn>=1.0.0
-pandas>=1.3.0
-numpy>=1.21.0
-matplotlib>=3.4.0
-seaborn>=0.11.0
-tqdm>=4.62.0
-```
+Welcome! This project is a comprehensive benchmark of anomaly detection models across scientific workflow datasets. It is organized for clarity, reproducibility, and ease of use.
 
 ---
 
-**🎉 Project Status: Complete**  
+## 📦 Project Structure: What is What?
+
+- **`data/`**: All raw and processed datasets used for experiments.
+- **`results/`**: Final, organized results for each model (metrics, plots, summaries).
+  - **`supervised/`**: Results from models trained with labeled data.
+    - `gcn_graph/`: Graph Convolutional Network (GCN) results
+    - `random_forest_tabular/`: Random Forest (tabular) results
+    - `roberta_text/`: RoBERTa (text) results
+  - **`unsupervised/`**: Results from models trained without labels.
+    - `graph_gae/`: Graph Autoencoder (GAE) results
+    - `tabular_gmm/`: Gaussian Mixture Model (GMM) results
+    - `text_sentence_bert/`: Sentence-BERT + Isolation Forest (text) results
+- **`reports/`**: Written Markdown reports summarizing each model's findings.
+  - **`supervised/`** and **`unsupervised/`**: Each contains a folder per model, with a single clear report file (e.g., `gcn_report.md`).
+- **`scripts/`**: All code for training, evaluating, and organizing models/results.
+  - `supervised/`, `unsupervised/`, `utils/`: Scripts grouped by model type or utility.
+- **Other files**: This README, environment files, and helper scripts.
+
+---
+
+## 🤔 What are Supervised and Unsupervised Models?
+
+- **Supervised models** learn from labeled data (they know which examples are normal or anomalous during training).
+- **Unsupervised models** do not use labels; they try to find anomalies based on patterns in the data alone.
+
+### Models Used:
+| Model Name                | Modality | Supervision   | Report Location                                      | Results Location                                      |
+|--------------------------|----------|---------------|------------------------------------------------------|-------------------------------------------------------|
+| GCN Graph Classification | Graph    | Supervised    | `reports/supervised/gcn_graph/gcn_report.md`         | `results/supervised/gcn_graph/`                       |
+| Random Forest Tabular     | Tabular  | Supervised    | `reports/supervised/random_forest_tabular/random_forest_report.md` | `results/supervised/random_forest_tabular/`           |
+| RoBERTa Text Classification | Text   | Supervised    | `reports/supervised/roberta_text/roberta_text_report.md` | `results/supervised/roberta_text/`                    |
+| Graph Autoencoder (GAE)   | Graph    | Unsupervised  | `reports/unsupervised/graph_gae/graph_gae_report.md` | `results/unsupervised/graph_gae/`                     |
+| Gaussian Mixture Model (GMM) | Tabular | Unsupervised | `reports/unsupervised/tabular_gmm/tabular_gmm_report.md` | `results/unsupervised/tabular_gmm/`                   |
+| Sentence-BERT + Isolation Forest | Text | Unsupervised | `reports/unsupervised/text_sentence_bert/text_sentence_bert_report.md` | `results/unsupervised/text_sentence_bert/`            |
+
+- **Modality**: The type of data the model uses (Graph, Tabular, or Text).
+- **Report Location**: Where to find the written summary and interpretation for each model.
+- **Results Location**: Where to find all metrics, plots, and CSVs for each model.
+
+---
+
+## 🚀 How to Use This Project (Step-by-Step)
+
+### 1. **Install Dependencies**
+Install all required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+### 2. **Download Datasets**
+If not already present, use the provided scripts to download and extract datasets into the `data/` folder.
+
+### 3. **Run Models**
+Each model has its own training script. Example usage:
+```bash
+# Supervised Models
+python scripts/supervised/gcn_graph/train_gcn.py
+python scripts/supervised/random_forest_tabular/train_random_forest.py
+python scripts/supervised/roberta_text/train_roberta_text.py
+
+# Unsupervised Models
+python scripts/unsupervised/graph_gae/train_gae_fixed.py
+python scripts/unsupervised/tabular_gmm/train_gmm_unsupervised.py
+python scripts/unsupervised/text_sentence_bert/train_text_unsupervised_simple.py
+```
+
+### 4. **Organize and Summarize Results**
+To automatically organize all results and generate summary folders:
+```bash
+python scripts/organize_final_project_improved.py
+```
+To compile and visualize text model results:
+```bash
+python scripts/utils/compile_text_final_results.py
+```
+
+### 5. **Check Results and Reports**
+- For each model, check the summary CSV and PNG files in the corresponding `results/` folder.
+- For a written summary and interpretation, read the corresponding Markdown report in the `reports/` folder.
+
+---
+
+## 📚 What Do the Results and Reports Contain?
+- **CSV files**: Summaries of model performance (accuracy, F1, ROC-AUC, etc.) for each dataset.
+- **PNG images**: Visualizations like ROC curves, confusion matrices, and performance comparisons.
+- **Markdown reports**: Human-readable summaries, interpretation, and comparison to prior work.
+
+---
+
+## 🧩 Need More Details?
+- Each script is commented and organized by model type.
+- Reports explain the strengths, weaknesses, and findings for each model.
+- The project is ready for extension or reproduction of results.
+
+---
+
+**🎉 Project Status: Complete**
 All models trained, evaluated, and results organized successfully!
