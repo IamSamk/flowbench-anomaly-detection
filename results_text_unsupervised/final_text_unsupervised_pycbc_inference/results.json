@@ -1,0 +1,10 @@
+{
+  "dataset": "pycbc_inference",
+  "method": "sentence_bert_isolation_forest",
+  "roc_auc": 0.6162790697674418,
+  "f1_score": 0.3684210526315789,
+  "accuracy": 0.5294117647058824,
+  "precision": 0.23333333333333334,
+  "recall": 0.875,
+  "best_threshold": -0.05810280950889435
+}

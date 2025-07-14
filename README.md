@@ -1,159 +1,107 @@
-# FlowBench Anomaly Detection Research
+# Machine Learning Paper - Anomaly Detection Across Workflow Datasets
 
-This repository contains research on anomaly detection in computational workflows using the FlowBench dataset. The project implements and evaluates machine learning models for detecting anomalies in scientific workflow executions.
+## 🎯 Project Overview
 
-## Project Overview
+This project implements and evaluates **6 anomaly detection models** across 12 workflow datasets using multiple modalities (text, tabular, graph) and approaches (3 supervised, 3 unsupervised).
 
-This research focuses on:
-- **Dataset**: FlowBench "montage" workflow dataset
-- **Task**: Binary anomaly detection (normal vs. anomalous workflow executions)
-- **Models**: Random Forest Classifier (baseline)
-- **Features**: 7 delay-related features (v1 feature set)
-- **Goal**: Benchmark and improve ML models for workflow anomaly detection
+## 📊 Datasets Analyzed
 
-## Results
+The following 12 workflow datasets were analyzed:
+- `1000genome` - Genomics workflow
+- `casa_nowcast` - Climate modeling  
+- `casa_wind_speed` - Wind speed analysis
+- `eht_difmap` - Event Horizon Telescope data processing
+- `eht_imaging` - EHT imaging pipeline
+- `eht_smili` - EHT SMILI processing
+- `montage` - Astronomical image mosaicking
+- `predict_future_sales` - Sales prediction workflow
+- `pycbc_inference` - Gravitational wave inference
+- `pycbc_search` - Gravitational wave search
+- `somospie` - Solar dynamics analysis
+- `variant_calling` - Genomic variant calling
 
-### Random Forest Performance (Baseline)
-- **Accuracy**: 80.23%
-- **F1-Score**: 40.14%
-- **ROC-AUC**: 76.94%
+## 🤖 Models Implemented
 
-### Dataset Statistics
-- **Total samples**: 172,480
-- **Anomaly ratio**: 20.44% (35,251 anomalies)
-- **Features**: 7 (delay features + node_hop)
-- **Train/Test split**: 70%/30%
+### Supervised Learning (3 models)
+- **GCN Graph Classification**: Graph-based anomaly detection
+- **Random Forest Tabular**: Tabular-based anomaly detection
+- **RoBERTa Text Classification**: Text-based anomaly detection
 
-### Feature Importance (Top 3)
-1. **queue_delay**: 29.77%
-2. **runtime**: 28.55%
-3. **stage_in_delay**: 27.47%
+### Unsupervised Learning (3 models)
+- **Graph Autoencoder (Fixed)**: Graph-based anomaly detection
+- **Gaussian Mixture Model**: Tabular-based anomaly detection
+- **Sentence-BERT + Isolation Forest**: Text-based anomaly detection
 
-## Setup Instructions
 
-### Prerequisites
-- Python 3.11+
-- CUDA-compatible GPU (optional, for future GNN experiments)
-- Git
+## 📁 Project Structure
 
-### Installation
+```
+├── results/
+│   ├── supervised/
+│   │   └── gcn_graph/          # GCN Graph Classification
+│   │   └── random_forest_tabular/          # Random Forest Tabular
+│   │   └── roberta_text/          # RoBERTa Text Classification
+│   └── unsupervised/
+│       └── graph_gae/       # Graph Autoencoder (Fixed)
+│       └── tabular_gmm/       # Gaussian Mixture Model
+│       └── text_sentence_bert/       # Sentence-BERT + Isolation Forest
+├── reports/
+│   ├── supervised/                # Supervised learning reports
+│   └── unsupervised/              # Unsupervised learning reports  
+├── scripts/
+│   ├── supervised/                # Supervised model scripts
+│   ├── unsupervised/              # Unsupervised model scripts
+│   └── utils/                     # Utility and organization scripts
+└── data/                          # Dataset files
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd MLpaper
-   ```
+## 🚀 Usage
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv flowbench-env
-   ```
+### Running Individual Models
 
-3. **Activate virtual environment**
-   ```bash
-   # Windows
-   .\flowbench-env\Scripts\activate
-   
-   # Linux/Mac
-   source flowbench-env/bin/activate
-   ```
-
-4. **Install dependencies**
-   ```bash
-   pip install torch torch-geometric torchvision torchaudio
-   pip install scikit-learn matplotlib seaborn pandas numpy
-   pip install flowbench
-   ```
-
-5. **Download datasets**
-   - Place the following zip files in the `data/` directory:
-     - `montage.zip`
-     - `1000genome.zip`
-     - `predict_future_sales.zip`
-
-## Usage
-
-### Running the Baseline Model
 ```bash
-python train_tabular.py
+# Supervised Models
+python scripts/supervised/gcn_graph/train_*.py
+python scripts/supervised/random_forest_tabular/train_*.py
+python scripts/supervised/roberta_text/train_*.py
+
+# Unsupervised Models
+python scripts/unsupervised/graph_gae/train_*.py
+python scripts/unsupervised/tabular_gmm/train_*.py
+python scripts/unsupervised/text_sentence_bert/train_*.py
 ```
 
-This will:
-- Load the montage dataset
-- Train a Random Forest classifier
-- Evaluate performance metrics
-- Generate visualizations:
-  - `confusion_matrix.png`
-  - `roc_curve.png`
-  - `feature_importance.png`
+## 📊 Result Files
 
-### Data Extraction
-```bash
-python extract_data.py
+Each model directory contains:
+- `*_results_summary.csv` - Performance metrics summary
+- `*_confusion_matrices.png` - Confusion matrix visualizations  
+- `*_roc_curves.png` - ROC curve plots
+- `*_performance_summary.png` - Comprehensive performance analysis
+
+## 🏆 Key Findings
+
+This comprehensive evaluation across multiple modalities and approaches provides insights into:
+- **Best performing models** for each data type
+- **Cross-modal performance** comparisons
+- **Supervised vs unsupervised** effectiveness
+- **Dataset-specific** anomaly patterns
+
+## 📚 Dependencies
+
+```
+torch>=1.9.0
+transformers>=4.0.0
+sentence-transformers>=2.0.0
+scikit-learn>=1.0.0
+pandas>=1.3.0
+numpy>=1.21.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+tqdm>=4.62.0
 ```
 
-## Project Structure
+---
 
-```
-MLpaper/
-├── data/                          # Dataset directory
-│   ├── montage.zip               # Montage workflow data
-│   ├── 1000genome.zip           # 1000genome workflow data
-│   ├── predict_future_sales.zip # Sales prediction workflow data
-│   └── adjacency_list_dags/     # Workflow graph definitions
-├── flowbench-env/                # Virtual environment
-├── train_tabular.py             # Main training script
-├── extract_data.py              # Data extraction utility
-├── README.md                    # This file
-└── .gitignore                   # Git ignore rules
-```
-
-## Technical Details
-
-### FlowBench Patches
-The repository includes patches to the FlowBench library to resolve compatibility issues:
-- **Dataset loading**: Modified to use local data directory
-- **PyTorch compatibility**: Fixed for PyTorch 2.6+ `weights_only` parameter
-- **Adjacency files**: Updated path resolution for workflow graphs
-
-### Feature Set (v1)
-The model uses the following 7 features:
-- `wms_delay`: Workflow Management System delay
-- `queue_delay`: Queue waiting time
-- `runtime`: Actual execution time
-- `post_script_delay`: Post-script execution delay
-- `stage_in_delay`: Input data staging delay
-- `stage_out_delay`: Output data staging delay
-- `node_hop`: Graph distance from root node
-
-## Future Work
-
-This baseline establishes a foundation for:
-1. **Advanced Models**: GNNs, Transformers, LLMs
-2. **Feature Engineering**: Exploring v2/v3 feature sets
-3. **Multi-dataset Evaluation**: Testing on other FlowBench workflows
-4. **Real-time Detection**: Deployment considerations
-
-## Comparison with FlowBench Paper
-
-*[To be added: Comparison with baseline results from the original FlowBench paper]*
-
-## License
-
-This project is for research purposes. The FlowBench dataset is licensed under Creative Commons Attribution 4.0 International License.
-
-## Citation
-
-If you use this code in your research, please cite:
-```
-@article{flowbench2024,
-  title={cFlow-Bench: A Dataset and Benchmarks for Computational Workflow Anomaly Detection},
-  author={PoSeiDon Team},
-  journal={arXiv preprint},
-  year={2024}
-}
-```
-
-## Contact
-
-For questions or contributions, please open an issue on GitHub. 
+**🎉 Project Status: Complete**  
+All models trained, evaluated, and results organized successfully!

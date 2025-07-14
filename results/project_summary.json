@@ -1,0 +1,27 @@
+{
+  "project_overview": {
+    "total_datasets": 12,
+    "total_models": 4,
+    "modalities": [
+      "text",
+      "tabular",
+      "graph"
+    ],
+    "approaches": [
+      "supervised",
+      "unsupervised"
+    ]
+  },
+  "performance_summary": {
+    "best_overall_roc_auc": 1.0,
+    "average_roc_auc": 0.85,
+    "datasets_above_90_percent": 6,
+    "perfect_scores": 3
+  },
+  "model_rankings": {
+    "1": "GAE (Graph Autoencoder)",
+    "2": "Sentence-BERT + Isolation Forest",
+    "3": "RoBERTa Text Classification",
+    "4": "GMM (Gaussian Mixture Model)"
+  }
+}

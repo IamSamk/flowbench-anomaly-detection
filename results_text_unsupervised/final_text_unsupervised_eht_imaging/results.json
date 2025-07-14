@@ -1,0 +1,10 @@
+{
+  "dataset": "eht_imaging",
+  "method": "sentence_bert_isolation_forest",
+  "roc_auc": 0.2867647058823529,
+  "f1_score": 0.06896551724137931,
+  "accuracy": 0.25,
+  "precision": 0.037037037037037035,
+  "recall": 0.5,
+  "best_threshold": -0.14953742938426362
+}

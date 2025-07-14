@@ -1,0 +1,10 @@
+{
+  "dataset": "variant_calling",
+  "method": "sentence_bert_isolation_forest",
+  "roc_auc": 0.6747367736903679,
+  "f1_score": 0.0,
+  "accuracy": 0.9847259658580413,
+  "precision": 0.0,
+  "recall": 0.0,
+  "best_threshold": 0.1137148974223271
+}

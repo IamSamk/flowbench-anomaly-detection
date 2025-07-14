@@ -1,0 +1,10 @@
+{
+  "dataset": "1000genome",
+  "method": "sentence_bert_isolation_forest",
+  "roc_auc": 0.6241955069823923,
+  "f1_score": 0.38596491228070173,
+  "accuracy": 0.9148418491484185,
+  "precision": 0.9166666666666666,
+  "recall": 0.24444444444444444,
+  "best_threshold": 0.04108362579105823
+}
